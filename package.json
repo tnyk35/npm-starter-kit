@@ -1,0 +1,30 @@
+{
+  "name": "my-npm-scripsts-prj",
+  "description": "Framework of my npm scripts projects.",
+  "author": "Yuki Tani",
+  "license": "MIT",
+  "scripts": {
+    "watch:pug": "pug src --out html --pretty --watch",
+    "build:pug": "pug src --out html",
+    "watch:stylus": "stylus --watch ./src/assets/css/style.styl --out ./html/assets/css/",
+    "build:stylus": "stylus ./src/assets/css/style.styl --out ./html/assets/css/ -c",
+    "watch:babel": "webpack --watch=true",
+    "build:babel": "webpack --mode=production",
+    "server": "browser-sync start --server ./html/ --startPath ./ --files './html/'",
+    "watch": "npm-run-all -p server watch:pug watch:stylus watch:babel",
+    "build": "npm-run-all -p build:pug build:stylus build:babel"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.24.4",
+    "jquery": "^3.3.1",
+    "npm-run-all": "^4.1.3",
+    "pug": "^2.0.3",
+    "pug-cli": "^1.0.0-alpha6",
+    "stylus": "^0.54.5",
+    "webpack": "^4.9.1",
+    "webpack-cli": "^2.1.4"
+  }
+}

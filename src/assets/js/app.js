@@ -1,8 +1,10 @@
-import $ from 'jquery';
-import Test from '../../_parts/js/test';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Todo from './Todo';
 
-(function () {
-  console.log('test');
-  var test = new Test();
-  test.doAct();
-}());
+const todos = [
+  {text: "テストです", isChecked: false},
+  {text: "テスト2です", isChecked: true}
+];
+
+ReactDOM.render(<Todo todos={todos} />, document.getElementById('app'));

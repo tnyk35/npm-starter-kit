@@ -1,36 +1,62 @@
 import React from 'react';
 import Form from './Form';
 import TodoList from './TodoList';
+import Delete from './Delete';
 
 export default class Todo extends React.Component {
   constructor(props) {
-    console.log(props);
     super();
     this.state = {
-      todos: props.todos
-    };
-    this.updateTodo = this.updateTodo.bind(this);
+      todoList: props.todos
+    }
+    this.addList = this.addList.bind(this);
+    this.changeListCheck = this.changeListCheck.bind(this);
+    this.removeList = this.removeList.bind(this);
   }
 
-  // リスト更新
-  updateTodo(text) {
+  addList(text) {
     var
-      todos = this.state.todos,
-      todo = {
-        text: text,
-        isChecked: false
-      };
-    todos.push(todo);
-    this.setState({todos: todos});
-    console.log(this.state.todos);
+      todoList = this.state.todoList,
+      todo = {text: text, isChecked: false};
+    todoList.push(todo);
+    this.setState({todoList: todoList});
+  }
+
+  changeListCheck(target) {
+    var
+      todoList = this.state.todoList,
+      index = target.name,
+      checked = target.checked;
+    
+    todoList.map((todo, idx) => {
+    if (index === idx + '') {
+      todoList[idx].isChecked = checked;
+    }
+    });
+
+    this.setState({todoList: todoList});
+  }
+
+  removeList() {
+    var todoList = this.state.todoList;
+
+    for (var i = 0; i < todoList.length;) {
+      if (todoList[i].isChecked) {
+        todoList.splice(i, 1);
+      } else {
+        i++;
+      }
+    }
+    this.setState({todoList: todoList});
   }
 
   render() {
     return (
       <div>
-        <Form updateTodo={this.updateTodo} />
-        <TodoList todos={this.state.todos} />
+        <Delete removeList={this.removeList} />
+        <Form addList={this.addList} />
+        <TodoList todos={this.state.todoList} changeCheck={this.changeListCheck} />
       </div>
-    );
+    )
   }
 }
